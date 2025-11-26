@@ -12,16 +12,17 @@ import (
 func Init() (utilityFlags.Flags, error) {
 	nxUsername := flag.String("u", "", "Nexus username")
 	nxPassword := flag.String("p", "", "Nexus password")
+	nxAnonymousMode := flag.Bool("anon", true, "Nexus user-anonymous mode")
 	nxInstanceUri := flag.String("uri", "", "Nexus instance uri")
 	nxRepoName := flag.String("repo", "", "Nexus repository name for malware scanning")
 	flag.Parse()
 
-	if nxUsername == nil || len(*nxUsername) == 0 {
+	if !(*nxAnonymousMode) && (nxUsername == nil || (*nxUsername) == "") {
 		return utilityFlags.Flags{}, errors.New("nexus username is not specified (-u)")
 	}
 
-	if nxPassword == nil || len(*nxPassword) == 0 {
-		return utilityFlags.Flags{}, errors.New("nexus password  is not specified (-p)")
+	if !(*nxAnonymousMode) && (nxPassword == nil || (*nxPassword) == "") {
+		return utilityFlags.Flags{}, errors.New("nexus password is not specified (-p)")
 	}
 
 	if nxInstanceUri == nil || len(*nxInstanceUri) == 0 {
