@@ -22,7 +22,6 @@ func PrintStartupCfg(flags utilityFlags.Flags) {
 }
 
 func CreateUtilDir() (string, error) {
-	fmt.Print("> Creating utility dir: ")
 	err := os.Mkdir(tempDirName, os.ModePerm)
 	if err != nil && !os.IsExist(err) {
 		return "", fmt.Errorf("can't create temp dir %s: %v", tempDirName, err)
@@ -34,6 +33,5 @@ func CreateUtilDir() (string, error) {
 	}
 
 	tempFolderPath := path.Join(osWdPath, tempDirName)
-	fmt.Println(tempFolderPath)
 	return tempFolderPath, nil
 }
