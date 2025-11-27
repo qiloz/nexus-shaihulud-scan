@@ -2,7 +2,7 @@
 
 A CLI utility written on GO for interacting with a Nexus Repository to list and scan packages for SHAi-Hulud malware packages
 
-Malware list is pulling from live-update `.CSV`: https://www.koi.ai/incident/live-updates-sha1-hulud
+Malware list is pulling from live-update `.CSV`: (https://www.koi.ai/incident/live-updates-sha1-hulud-the-second-coming-hundred-npm-packages-compromised)
 
 # Usage
 ```bash
