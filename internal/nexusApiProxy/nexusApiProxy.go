@@ -35,7 +35,7 @@ func GetNxRepoAssets(flags utilityFlags.Flags, continuationToken string) (NxAsse
 		return NxAssetsResult{}, err
 	}
 
-	if flags.NxUsername != "" && flags.NxPassword != "" {
+	if !flags.NxAnonymousMode {
 		req.SetBasicAuth(flags.NxUsername, flags.NxPassword)
 	}
 

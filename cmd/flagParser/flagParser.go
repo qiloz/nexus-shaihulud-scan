@@ -12,16 +12,17 @@ import (
 func Init() (utilityFlags.Flags, error) {
 	nxUsername := flag.String("u", "", "Nexus username")
 	nxPassword := flag.String("p", "", "Nexus password")
-	nxAnonymousMode := flag.Bool("anon", true, "Nexus user-anonymous mode")
 	nxInstanceUri := flag.String("uri", "", "Nexus instance uri")
 	nxRepoName := flag.String("repo", "", "Nexus repository name for malware scanning")
+	nxNoScanMode := flag.Bool("no-scan", false, "Parse pkg-list from nexus without scanning")
 	flag.Parse()
 
-	if !(*nxAnonymousMode) && (nxUsername == nil || (*nxUsername) == "") {
-		return utilityFlags.Flags{}, errors.New("nexus username is not specified (-u)")
+	var nxAnonymousMode bool
+	if nxUsername == nil || (*nxUsername) == "" {
+		nxAnonymousMode = true
 	}
 
-	if !(*nxAnonymousMode) && (nxPassword == nil || (*nxPassword) == "") {
+	if nxUsername == nil || (*nxUsername) != "" && (nxPassword == nil || (*nxPassword) == "") {
 		return utilityFlags.Flags{}, errors.New("nexus password is not specified (-p)")
 	}
 
@@ -38,7 +39,7 @@ func Init() (utilityFlags.Flags, error) {
 		return utilityFlags.Flags{}, errors.New("target nexus repository name is not specified (-repo)")
 	}
 	return utilityFlags.Flags{
-		NxUsername: *nxUsername, NxPassword: *nxPassword, NxInstanceUri: *nxInstanceUri, NxRepoName: *nxRepoName,
+		NxUsername: *nxUsername, NxPassword: *nxPassword, NxInstanceUri: *nxInstanceUri, NxRepoName: *nxRepoName, NxNoScanMode: *nxNoScanMode, NxAnonymousMode: nxAnonymousMode,
 	}, nil
 }
 
